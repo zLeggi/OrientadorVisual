@@ -44,19 +44,24 @@
       }
       .etiqueta {
         position: relative;
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         margin-top: 60px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       .retangulo {
         width: 60px;
-        height: 20px;
+        height: 40px;
         position: absolute;
         left: 20px;
         border-radius: 4px;
       }
+
       .retangulo-vertical {
-        width: 20px;
+        width: 40px;
         height: 60px;
         position: absolute;
         top: 20px;
@@ -145,7 +150,7 @@
           text-align: center;
           font-family: "Montserrat", sans-serif !important;
           font-weight: 700 !important;
-          font-size: 3.5em;
+          font-size: 5em;
           color: black !important;
           text-transform: uppercase;
         }
@@ -172,28 +177,22 @@
         }
 
         .retangulo {
-          width: 280px !important;
-          height: 70px !important;
-          border-radius: 10px;
-          position: absolute;
-          top: 140px !important;
-          left: 35px !important;
+          width: 240px !important;
+          height: 160px !important;
+          top: 100px !important; /* centraliza verticalmente */
+          left: calc(60px) !important; /* centraliza horizontalmente */
         }
 
         .retangulo-vertical {
-          width: 70px !important;
-          height: 280px !important;
-          border-radius: 10px;
-          position: absolute;
-          top: 35px !important;
+          width: 160px !important;
+          height: 240px !important;
+          top: calc(30px) !important;
         }
 
-        .retangulo-vertical.esquerda {
-          left: 105px !important;
-        }
+        
 
         .retangulo-vertical.direita {
-          left: 175px !important;
+          left: calc(50% + 10px) !important;
         }
 
         .circulo[style*="background: white"],
@@ -330,12 +329,8 @@
           el.style.background = componente.cor;
 
           if (componente.formato === "retangulo") {
-            if (componentes.length === 2) {
-              el.style.top = index === 0 ? "30px" : "50px";
-            } else if (componentes.length === 3) {
-              el.style.top =
-                index === 1 ? "30px" : index === 2 ? "55px" : "0px";
-            }
+            el.style.top = "calc(50% - 30px)";
+            el.style.left = "calc(50% - )";
           }
 
           etiquetaDiv.appendChild(el);
