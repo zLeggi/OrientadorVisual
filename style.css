@@ -1,0 +1,201 @@
+body {
+  font-family: sans-serif;
+  background: #1e1e1e;
+  color: #fff;
+  padding: 20px;
+}
+.controls {
+  margin-bottom: 20px;
+}
+.input-group {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+#listaContainer {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+#listaOrientadores {
+  width: 100%;
+  border-collapse: collapse;
+}
+#listaOrientadores th,
+#listaOrientadores td {
+  border: 1px solid #fff;
+  padding: 6px;
+  text-align: left;
+}
+#listaOrientadores th {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.card {
+  background: #eaeaea;
+  padding: 10px;
+  border-radius: 8px;
+  width: 45%;
+  text-align: center;
+  page-break-inside: avoid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.card .titulo {
+  color: black;
+  font-weight: bold;
+  position: absolute;
+  top: 20px;
+}
+.etiqueta {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.retangulo {
+  width: 60px;
+  height: 40px;
+  position: absolute;
+  left: 20px;
+  border-radius: 4px;
+}
+.retangulo-vertical {
+  width: 40px;
+  height: 60px;
+  position: absolute;
+  top: 20px;
+  border-radius: 4px;
+}
+.retangulo-vertical.esquerda {
+  left: 20px;
+}
+.retangulo-vertical.direita {
+  left: 60px;
+}
+.circulo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+input,
+button {
+  padding: 6px 10px;
+  font-size: 14px;
+  margin-right: 5px;
+}
+.alerta {
+  color: yellow;
+  margin-top: 10px;
+}
+#contador {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+@media print {
+  * {
+    box-sizing: border-box !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .controls,
+  h1 {
+    display: none !important;
+  }
+  .grid {
+    display: block !important;
+    margin: 0;
+    padding: 0;
+  }
+  .card {
+    page-break-before: always !important;
+    break-before: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    width: 100%;
+    height: 100vh;
+    background: #eaeaea !important;
+    border: 1px solid #000 !important;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:first-child {
+    page-break-before: auto !important;
+    break-before: auto !important;
+  }
+  .titulo {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    font-family: "Montserrat", sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 5em;
+    color: black !important;
+    text-transform: uppercase;
+  }
+  .etiqueta {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 350px;
+    height: 350px;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .circulo {
+    width: 350px !important;
+    height: 350px !important;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .retangulo {
+    width: 240px !important;
+    height: 160px !important;
+    top: 100px !important;
+    left: calc(60px) !important;
+  }
+  .retangulo-vertical {
+    width: 160px !important;
+    height: 240px !important;
+    top: calc(30px) !important;
+  }
+  .retangulo-vertical.direita {
+    left: calc(50% + 10px) !important;
+  }
+  .circulo[style*="background: white"],
+  .retangulo[style*="background: white"],
+  .retangulo-vertical[style*="background: white"] {
+    border: 0.5px solid #999 !important;
+  }
+}

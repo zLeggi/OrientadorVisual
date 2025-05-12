@@ -7,346 +7,62 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="style.css" />
     <title>Gestão Visual de Orientadores</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        background: #1e1e1e;
-        color: #fff;
-        padding: 20px;
-      }
-      .controls {
-        margin-bottom: 20px;
-      }
-      .grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-      }
-      .card {
-        background: #eaeaea;
-        padding: 10px;
-        border-radius: 8px;
-        width: 45%;
-        text-align: center;
-        page-break-inside: avoid;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-      }
-      .card .titulo {
-        color: black;
-        font-weight: bold;
-        position: absolute;
-        top: 20px;
-      }
-      .etiqueta {
-        position: relative;
-        width: 120px;
-        height: 120px;
-        margin-top: 60px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .retangulo {
-        width: 60px;
-        height: 40px;
-        position: absolute;
-        left: 20px;
-        border-radius: 4px;
-      }
-
-      .retangulo-vertical {
-        width: 40px;
-        height: 60px;
-        position: absolute;
-        top: 20px;
-        border-radius: 4px;
-      }
-      .retangulo-vertical.esquerda {
-        left: 20px;
-      }
-      .retangulo-vertical.direita {
-        left: 60px;
-      }
-      .circulo {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-      input,
-      button {
-        padding: 6px 10px;
-        font-size: 14px;
-        margin-right: 5px;
-      }
-      .alerta {
-        color: yellow;
-        margin-top: 10px;
-      }
-      #contador {
-        margin-top: 10px;
-        font-size: 14px;
-        color: #ccc;
-      }
-
-      @media print {
-        * {
-          box-sizing: border-box !important;
-        }
-
-        body {
-          background: white !important;
-          color: black !important;
-          margin: 0;
-          padding: 0;
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-        }
-
-        .controls,
-        h1 {
-          display: none !important;
-        }
-
-        .grid {
-          display: block !important;
-          margin: 0;
-          padding: 0;
-        }
-
-        .card {
-          page-break-before: always !important;
-          break-before: page !important;
-          page-break-inside: avoid !important;
-          break-inside: avoid !important;
-          width: 100%;
-          height: 100vh;
-          background: #eaeaea !important;
-          border: 1px solid #000 !important;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .card:first-child {
-          page-break-before: auto !important;
-          break-before: auto !important;
-        }
-
-        .titulo {
-          position: absolute;
-          top: 20px;
-          width: 100%;
-          text-align: center;
-          font-family: "Montserrat", sans-serif !important;
-          font-weight: 700 !important;
-          font-size: 5em;
-          color: black !important;
-          text-transform: uppercase;
-        }
-
-        .etiqueta {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 350px;
-          height: 350px;
-          transform: translate(-50%, -50%);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .circulo {
-          width: 350px !important;
-          height: 350px !important;
-          border-radius: 50%;
-          position: absolute;
-          top: 0;
-          left: 0;
-        }
-
-        .retangulo {
-          width: 240px !important;
-          height: 160px !important;
-          top: 100px !important; /* centraliza verticalmente */
-          left: calc(60px) !important; /* centraliza horizontalmente */
-        }
-
-        .retangulo-vertical {
-          width: 160px !important;
-          height: 240px !important;
-          top: calc(30px) !important;
-        }
-
-        
-
-        .retangulo-vertical.direita {
-          left: calc(50% + 10px) !important;
-        }
-
-        .circulo[style*="background: white"],
-        .retangulo[style*="background: white"],
-        .retangulo-vertical[style*="background: white"] {
-          border: 0.5px solid #999 !important;
-        }
-      }
-    </style>
   </head>
   <body>
-    <!-- restante do código permanece o mesmo -->
     <h1>Gestão Visual de Orientadores</h1>
+
     <div class="controls">
-      <input
-        type="text"
-        id="nomesInput"
-        placeholder="Digite os nomes, separados por vírgula"
-        size="50"
-      />
+      <div class="input-group">
+        <input
+          type="text"
+          id="nomeInput"
+          placeholder="Nome do orientador"
+          pattern="[A-Za-zÀ-ÖØ-öø-ÿ ]+"
+          title="Apenas letras e espaços"
+        />
+        <input
+          type="text"
+          id="areaInput"
+          placeholder="Área (número)"
+          inputmode="numeric"
+          pattern="\d+"
+          title="Apenas dígitos"
+        />
+        <input
+          type="text"
+          id="quantidadeInput"
+          placeholder="Quantidade de itens"
+          inputmode="numeric"
+          pattern="\d+"
+          title="Apenas dígitos"
+        />
+        <button id="addButton">+</button>
+      </div>
+
+      <div id="alerta" class="alerta"></div>
+      <div id="contador"></div>
+
+      <div id="listaContainer">
+        <table id="listaOrientadores">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Área</th>
+              <th>Quantidade</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
       <button onclick="gerarEtiquetas()">Gerar Etiquetas</button>
       <button onclick="limparCards()">Limpar</button>
       <button onclick="window.print()">Imprimir</button>
-      <div id="alerta" class="alerta"></div>
-      <div id="contador"></div>
     </div>
+
     <div class="grid" id="container"></div>
-
-    <script>
-      const container = document.getElementById("container");
-      const alerta = document.getElementById("alerta");
-      const contador = document.getElementById("contador");
-
-      const tipos = [
-        { cor: "red", formato: "circulo" },
-        { cor: "red", formato: "retangulo" },
-        { cor: "green", formato: "circulo" },
-        { cor: "green", formato: "retangulo" },
-        { cor: "white", formato: "retangulo" },
-      ];
-
-      function gerarEtiquetas() {
-        container.innerHTML = "";
-        alerta.textContent = "";
-        contador.textContent = "";
-
-        const nomesInput = document.getElementById("nomesInput").value;
-        let nomes = nomesInput
-          .split(",")
-          .map((n) => n.trim())
-          .filter(Boolean);
-
-        const nomesDuplicados = nomes.filter(
-          (n, i, arr) => arr.indexOf(n) !== i
-        );
-        if (nomesDuplicados.length > 0) {
-          alerta.textContent = `Nomes duplicados encontrados: ${nomesDuplicados.join(
-            ", "
-          )}. Adicione sobrenomes ou diferencie os nomes.`;
-          return;
-        }
-
-        const etiquetas = [];
-
-        const unicas = tipos.filter((t) => t.cor !== "white");
-        for (let tipo of unicas) {
-          etiquetas.push([tipo]);
-        }
-
-        for (let c of tipos.filter((t) => t.formato === "circulo")) {
-          for (let r of tipos.filter(
-            (t) => t.formato === "retangulo" && t.cor !== c.cor
-          )) {
-            etiquetas.push([c, r]);
-          }
-        }
-
-        const retangulos = tipos.filter((t) => t.formato === "retangulo");
-        for (let i = 0; i < retangulos.length; i++) {
-          for (let j = 0; j < retangulos.length; j++) {
-            if (i !== j && retangulos[i].cor !== retangulos[j].cor) {
-              etiquetas.push([
-                {
-                  ...retangulos[i],
-                  formato: "retangulo-vertical",
-                  pos: "esquerda",
-                },
-                {
-                  ...retangulos[j],
-                  formato: "retangulo-vertical",
-                  pos: "direita",
-                },
-              ]);
-            }
-          }
-        }
-
-        for (let c of tipos.filter((t) => t.formato === "circulo")) {
-          for (let r of tipos.filter(
-            (t) =>
-              t.formato === "retangulo" && t.cor !== "white" && t.cor !== c.cor
-          )) {
-            etiquetas.push([c, { cor: "white", formato: "retangulo" }, r]);
-          }
-        }
-
-        nomes
-          .slice(0, 15)
-          .forEach((nome, i) => desenharCard(nome, etiquetas[i] || []));
-        contador.textContent = `Orientadores processados: ${Math.min(
-          nomes.length,
-          etiquetas.length
-        )}`;
-      }
-
-      function desenharCard(nome, componentes) {
-        const card = document.createElement("div");
-        card.className = "card";
-
-        const titulo = document.createElement("div");
-        titulo.textContent = nome;
-        titulo.className = "titulo";
-        titulo.style.marginBottom = "10px";
-
-        const etiquetaDiv = document.createElement("div");
-        etiquetaDiv.className = "etiqueta";
-
-        componentes.forEach((componente, index) => {
-          const el = document.createElement("div");
-          el.className = componente.formato;
-          if (componente.formato === "retangulo-vertical") {
-            el.classList.add(componente.pos);
-          }
-          el.style.background = componente.cor;
-
-          if (componente.formato === "retangulo") {
-            el.style.top = "calc(50% - 30px)";
-            el.style.left = "calc(50% - )";
-          }
-
-          etiquetaDiv.appendChild(el);
-        });
-
-        card.appendChild(titulo);
-        card.appendChild(etiquetaDiv);
-        container.appendChild(card);
-      }
-
-      function limparCards() {
-        container.innerHTML = "";
-        document.getElementById("nomesInput").value = "";
-        alerta.textContent = "";
-        contador.textContent = "";
-      }
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
