@@ -107,85 +107,97 @@ document.addEventListener("DOMContentLoaded", carregarOrientadores);
 
 
 // --- Lógica de Combinação de Caixas ---
+// Substitui a lógica original do sistema com melhoria de pontuação logística visual
 function getBoxCombination(qty) {
-  // ... (código existente sem alterações de log, para brevidade)
-  const foundCombinations = [];
-  function findOptimalCombinationRecursive(targetQty, boxIndex, currentBoxesList) {
-    if (targetQty <= 0) { 
-      let currentCapacity = 0;
-      const counts = {};
-      const uniqueBoxIdsInCombo = new Set();
-      currentBoxesList.forEach(box => {
-        currentCapacity += box.cap;
-        counts[box.id] = (counts[box.id] || 0) + 1;
-        uniqueBoxIdsInCombo.add(box.id);
+  const caixas = [
+    { id: 7, cap: 30 },
+    { id: 3, cap: 24 },
+    { id: 2, cap: 12 },
+    { id: 1, cap: 5 },
+    { id: 6, cap: 2 },
+  ];
+
+  const maxTiposDeCaixa = 2;
+  const maxCaixas = 5;
+  const isPedidoPequeno = qty < 60;
+
+  let melhoresCombinacoes = [];
+
+  function combinar(target, i, atual, totalCap, tipos, ociosidade) {
+    if (totalCap >= target && tipos.size <= maxTiposDeCaixa && atual.length <= maxCaixas) {
+      melhoresCombinacoes.push({
+        caixas: [...atual],
+        totalCap,
+        ociosidade: totalCap - target,
+        tipos: new Set([...tipos])
       });
-      foundCombinations.push({
-        combination: counts,
-        totalBoxes: currentBoxesList.length,
-        totalCapacity: currentCapacity,
-        wasted: currentCapacity - qty,
-        uniqueBoxTypesCount: uniqueBoxIdsInCombo.size
-      });
-      return;
     }
-    if (boxIndex >= CAIXAS_CONFIG.length) return; 
-    if (currentBoxesList.length > (qty / CAIXAS_CONFIG[CAIXAS_CONFIG.length -1].cap) + 5 && currentBoxesList.length > 10) { 
-        return;
+    if (totalCap >= target || i >= caixas.length) return;
+
+    combinar(
+      target,
+      i,
+      [...atual, caixas[i]],
+      totalCap + caixas[i].cap,
+      new Set([...tipos, caixas[i].cap]),
+      ociosidade
+    );
+
+    combinar(target, i + 1, atual, totalCap, tipos, ociosidade);
+  }
+
+  combinar(qty, 0, [], 0, new Set(), 0);
+
+  function pontuar(comb) {
+    const tipos = Array.from(comb.tipos).sort((a, b) => b - a);
+    const maior = tipos[0];
+    const menor = tipos[tipos.length - 1];
+    const diferenca = maior - menor;
+
+    const todasIguais = comb.tipos.size === 1;
+    const poucosTipos = comb.tipos.size <= 2;
+
+    let score = 0;
+
+    // Penalidades
+    score += comb.tipos.size * 10;          // quanto mais tipos, pior
+    score += comb.caixas.length * 5;        // mais caixas = mais complexidade
+    score += comb.ociosidade * 1.5;         // ociosidade agora pesa mais
+
+    if (!todasIguais) {
+      score += diferenca * 1.2;             // penalidade por diferença visual
     }
-    const currentBoxType = CAIXAS_CONFIG[boxIndex];
-    currentBoxesList.push(currentBoxType);
-    findOptimalCombinationRecursive(targetQty - currentBoxType.cap, boxIndex, currentBoxesList); 
-    currentBoxesList.pop(); 
-    findOptimalCombinationRecursive(targetQty, boxIndex + 1, currentBoxesList);
-  }
-  findOptimalCombinationRecursive(qty, 0, []);
-  const createFallbackCombination = (currentQty) => {
-    let currentTotalCap = 0;
-    const fallbackCombination = {};
-    const sortedCaixasByCapAsc = [...CAIXAS_CONFIG].sort((a, b) => a.cap - b.cap);
-    if (sortedCaixasByCapAsc.length === 0 && currentQty > 0) return { combination: {}, wasted: currentQty, totalBoxes: 0, uniqueBoxTypesCount: 0, totalCapacity: 0 };
-    const smallestBox = sortedCaixasByCapAsc[0];
-    let numSmallestBoxes = 0;
-    if (currentQty > 0 && smallestBox) {
-      while (currentTotalCap < currentQty) {
-        currentTotalCap += smallestBox.cap;
-        fallbackCombination[smallestBox.id] = (fallbackCombination[smallestBox.id] || 0) + 1;
-        numSmallestBoxes++;
-      }
-      return {
-        combination: fallbackCombination,
-        wasted: currentTotalCap - currentQty,
-        totalBoxes: numSmallestBoxes,
-        uniqueBoxTypesCount: Object.keys(fallbackCombination).length > 0 ? 1 : 0,
-        totalCapacity: currentTotalCap
-      };
-    } else if (currentQty <= 0) {
-      return { combination: {}, wasted: 0, totalBoxes: 0, uniqueBoxTypesCount: 0, totalCapacity: 0 };
+
+    // Bônus
+    if (todasIguais) score -= 10;           // incentivo moderado pra igualdade
+    else if (poucosTipos && diferenca <= 6) score -= 6; // pequeno bônus pra 30+24 por exemplo
+
+    if (comb.totalCap >= qty && isPedidoPequeno && diferenca <= 6) {
+      score -= 4; // leve bônus extra pra harmonia visual em pedidos pequenos
     }
-    return { combination: {}, wasted: currentQty, totalBoxes: 0, uniqueBoxTypesCount: 0, totalCapacity: 0 }; 
-  };
-  if (foundCombinations.length === 0) {
-    return createFallbackCombination(qty);
+
+    return score;
   }
-  const validOnes = foundCombinations.filter(c => c.wasted >= 0);
-  if (validOnes.length === 0) {
-    return createFallbackCombination(qty);
-  }
-  validOnes.sort((a, b) => {
-    if (a.uniqueBoxTypesCount !== b.uniqueBoxTypesCount) return a.uniqueBoxTypesCount - b.uniqueBoxTypesCount;
-    if (a.totalBoxes !== b.totalBoxes) return a.totalBoxes - b.totalBoxes;
-    if (a.wasted !== b.wasted) return a.wasted - b.wasted;
-    return b.totalCapacity - a.totalCapacity;
+
+  melhoresCombinacoes.sort((a, b) => pontuar(a) - pontuar(b));
+  const melhor = melhoresCombinacoes[0];
+
+  // Converte a lista de caixas em um mapa de id para quantidade
+  const counts = {};
+  melhor.caixas.forEach(box => {
+    counts[box.id] = (counts[box.id] || 0) + 1;
   });
-  const best = validOnes[0];
+
   return {
-    combination: best.combination,
-    wasted: best.wasted,
-    totalBoxes: best.totalBoxes,
-    uniqueBoxTypesCount: best.uniqueBoxTypesCount 
+    combination: counts,
+    wasted: melhor.ociosidade,
+    totalBoxes: melhor.caixas.length,
+    uniqueBoxTypesCount: melhor.tipos.size,
+    totalCapacity: melhor.totalCap
   };
 }
+
+
 
 // --- Funções Principais da Aplicação ---
 function adicionarOrientador(event) {

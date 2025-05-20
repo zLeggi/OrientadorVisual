@@ -279,6 +279,154 @@ body {
   #contador {
     display: none !important;
   }
+
+  #container.grid {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  width: 100% !important;
+  gap: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+
+.card {
+  width: 48% !important;
+  height: 90vh !important;
+  box-sizing: border-box !important;
+  margin: 0 1% 0 1% !important;
+  page-break-inside: avoid !important;
+  padding: 25px !important;
+  font-size: 1.5em !important;
+}
+
+.card .header .nome {
+  font-size: 1.8em !important;
+}
+.card .header .area {
+  font-size: 1.2em !important;
+}
+
+.card .footer {
+  font-size: 1em !important;
+}
+
+.card .etiqueta {
+  height: 320px !important;
+}
+
+
+  @page {
+  size: A4 landscape;
+  margin: 10mm;
+}
+
+.retangulo {
+  width: 120px;
+  height: 80px;
+  position: absolute;
+  border-radius: 4px;
+}
+
+/* Etiquetas retangulares lado a lado */
+.retangulo-esquerda {
+  width: 120px;
+  height: 80px;
+  position: absolute;
+  border-radius: 4px;
+  left: calc(50% )
+
+}
+.retangulo-direita {
+  width: 120px;
+  height: 80px;
+  position: absolute;
+  border-radius: 4px;
+  left: calc(50%);
+  transform: translateX(-100%);
+}
+
+/* Etiqueta retangular sobre círculo */
+.sobre_circulo_primario {
+  position: absolute;
+  width: 120px;
+  height: 80px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* Etiqueta retangular superior sobre círculo (para duas retangulares) */
+.retangulo-superior {
+  position: absolute;
+  width: 120px;
+  height: 60px;
+  top: calc(50% - 15px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* Etiqueta retangular inferior sobre círculo (para duas retangulares) */
+.retangulo-inferior {
+  position: absolute;
+  width: 120px;
+  height: 60px;
+  top: calc(50% + 15px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* Posição para segunda retangular sobre círculo */
+.sobre_circulo_secundario {
+  position: absolute;
+  width: 120px;
+  height: 630px;
+  top: calc(100%-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* Etiqueta circular padrão (centralizada) */
+.circulo {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  position: absolute;
+}
+
+/* Etiqueta retangular à esquerda e circular à direita */
+.retangulo-esquerda-centralizado {
+  width: 120px;
+  height: 80px;
+  position: absolute;
+  border-radius: 4px;
+  left: calc(50% - 35px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.circulo-direita-centralizado {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  position: absolute;
+  right: calc(50% - 35px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 }
 
 /* Estilo para o retângulo branco */
