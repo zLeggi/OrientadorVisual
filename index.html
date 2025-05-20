@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
     <title>Gestão Visual de Orientadores</title>
   </head>
@@ -14,32 +11,14 @@
     <h1>Gestão Visual de Orientadores</h1>
 
     <div class="controls">
-      <div class="input-group">
-        <input
-          type="text"
-          id="nomeInput"
-          placeholder="Nome do orientador"
-          pattern="[A-Za-zÀ-ÖØ-öø-ÿ ]+"
-          title="Apenas letras e espaços"
-        />
-        <input
-          type="text"
-          id="areaInput"
-          placeholder="Área (número)"
-          inputmode="numeric"
-          pattern="\d+"
-          title="Apenas dígitos"
-        />
-        <input
-          type="text"
-          id="quantidadeInput"
-          placeholder="Quantidade de itens"
-          inputmode="numeric"
-          pattern="\d+"
-          title="Apenas dígitos"
-        />
-        <button id="addButton">+</button>
-      </div>
+      <form id="cadastroForm">
+        <div class="input-group">
+          <input type="text" id="nomeInput" placeholder="Nome do orientador" pattern="[A-Za-zÀ-ÖØ-öø-ÿ ]+" title="Apenas letras e espaços" required />
+          <input type="text" id="areaInput" placeholder="Área (número)" inputmode="numeric" pattern="\d+" title="Apenas dígitos" required />
+          <input type="text" id="quantidadeInput" placeholder="Quantidade de itens" inputmode="numeric" pattern="\d+" title="Apenas dígitos" required />
+          <button type="submit" id="addButton">+</button>
+        </div>
+      </form>
 
       <div id="alerta" class="alerta"></div>
       <div id="contador"></div>
@@ -51,18 +30,22 @@
               <th>Nome</th>
               <th>Área</th>
               <th>Quantidade</th>
+              <th>Caixas</th>
             </tr>
           </thead>
           <tbody></tbody>
         </table>
       </div>
 
-      <button onclick="gerarEtiquetas()">Gerar Etiquetas</button>
-      <button onclick="limparCards()">Limpar</button>
-      <button onclick="window.print()">Imprimir</button>
+      <button id="gerarEtiquetasButton">Gerar Etiquetas</button>
+      <button id="limparDadosButton">Limpar</button>
+      <button id="imprimirButton">Imprimir</button>
     </div>
 
     <div class="grid" id="container"></div>
-    <script src="script.js"></script>
+    <script src="etiquetasAvancadas.js"></script>
+    <script src="script_com_logs.js"></script> <!-- Alterado para script_com_logs.js -->
+
   </body>
 </html>
+

@@ -3,30 +3,37 @@ body {
   background: #1e1e1e;
   color: #fff;
   padding: 20px;
+  margin: 0;  
 }
+
 .controls {
   margin-bottom: 20px;
 }
+
 .input-group {
   display: flex;
   gap: 5px;
   margin-bottom: 10px;
 }
+
 #listaContainer {
   max-height: 200px;
   overflow-y: auto;
   margin-bottom: 15px;
 }
+
 #listaOrientadores {
   width: 100%;
   border-collapse: collapse;
 }
+
 #listaOrientadores th,
 #listaOrientadores td {
   border: 1px solid #fff;
   padding: 6px;
   text-align: left;
 }
+
 #listaOrientadores th {
   background: rgba(255, 255, 255, 0.1);
 }
@@ -36,166 +43,248 @@ body {
   flex-wrap: wrap;
   gap: 20px;
 }
+
 .card {
-  background: #eaeaea;
-  padding: 10px;
-  border-radius: 8px;
-  width: 45%;
-  text-align: center;
+  background: #fff;
+  color: #000;
+  padding: 20px;
+  border-radius: 12px;
+  width: 320px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   page-break-inside: avoid;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  justify-content: space-between;
 }
-.card .titulo {
-  color: black;
-  font-weight: bold;
-  position: absolute;
-  top: 20px;
-}
-.etiqueta {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin-top: 60px;
+
+.card .header {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-weight: bold;
 }
+
+.card .header .nome {
+  width: 70%;
+  font-weight: bold;
+}
+
+.card .header .area {
+  width: 30%;
+  text-align: right;
+  font-weight: bold;
+}
+
+.card .etiqueta {
+  width: 100%;
+  height: 100px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; /* Cor de fundo padrão */
+  border-radius: 4px;
+}
+
+.card .etiqueta .retangulo,
+.card .etiqueta .retangulo-vertical,
+.card .etiqueta .circulo {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  align-items: center;
+}
+
+/* Etiqueta retangular padrão (centralizada) */
 .retangulo {
   width: 60px;
   height: 40px;
   position: absolute;
-  left: 20px;
   border-radius: 4px;
-}
-.retangulo-vertical {
-  width: 40px;
-  height: 60px;
-  position: absolute;
-  top: 20px;
-  border-radius: 4px;
-}
-.retangulo-vertical.esquerda {
-  left: 20px;
-}
-.retangulo-vertical.direita {
-  left: 60px;
-}
-.circulo {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
-input,
-button {
-  padding: 6px 10px;
-  font-size: 14px;
-  margin-right: 5px;
+/* Etiquetas retangulares lado a lado */
+.retangulo-esquerda {
+  width: 60px;
+  height: 40px;
+  position: absolute;
+  border-radius: 4px;
+  left: calc(50% )
+
 }
-.alerta {
-  color: yellow;
-  margin-top: 10px;
+.retangulo-direita {
+  width: 60px;
+  height: 40px;
+  position: absolute;
+  border-radius: 4px;
+  left: calc(50%);
+  transform: translateX(-100%);
 }
-#contador {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #ccc;
+
+/* Etiqueta retangular sobre círculo */
+.sobre_circulo_primario {
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* Etiqueta retangular superior sobre círculo (para duas retangulares) */
+.retangulo-superior {
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  top: calc(50% - 15px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* Etiqueta retangular inferior sobre círculo (para duas retangulares) */
+.retangulo-inferior {
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  top: calc(50% + 15px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* Posição para segunda retangular sobre círculo */
+.sobre_circulo_secundario {
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  top: calc(100%-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* Etiqueta circular padrão (centralizada) */
+.circulo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: absolute;
+}
+
+/* Etiqueta retangular à esquerda e circular à direita */
+.retangulo-esquerda-centralizado {
+  width: 60px;
+  height: 40px;
+  position: absolute;
+  border-radius: 4px;
+  left: calc(50% - 35px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.circulo-direita-centralizado {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  position: absolute;
+  right: calc(50% - 35px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.card .footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+.card .footer .caixas {
+  width: 70%;
+}
+
+.card .footer .ociosidade {
+  width: 30%;
+  text-align: right;
 }
 
 @media print {
-  * {
-    box-sizing: border-box !important;
+  body > h1,
+  .controls,
+  #listaContainer, /* Oculta a tabela de listagem */
+  body > button, /* Oculta botões diretamente no body se houver */
+  .controls button {
+    /* Oculta botões dentro de .controls */
+    display: none !important;
   }
+
   body {
-    background: white !important;
-    color: black !important;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    background: #fff !important;
+    color: #000 !important;
+    padding: 10mm !important; /* Adiciona alguma margem para impressão */
+    margin: 0 !important;
+    font-size: 10pt !important; /* Ajusta o tamanho da fonte base para impressão */
+  }
+
+  #container.grid {
+    display: flex !important;
+    flex-direction: column !important; /* Empilha os cards verticalmente para impressão */
+    align-items: center !important; /* Centraliza os cards na página */
+    width: 100% !important;
+    gap: 5mm !important; /* Espaçamento entre cards na impressão */
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .card {
+    width: 180mm !important; /* Largura A4 menos margens (210mm - 2*15mm) */
+    max-width: 95% !important;
+    margin: 0 auto 0  auto !important; /* Margem inferior entre cards */
+    box-shadow: none !important;
+    border: 1px solid #999 !important; /* Borda leve para definir os cards */
+    page-break-inside: avoid !important;
+    padding: 15px !important; /* Padding interno do card */
+  }
+
+  .card .header .nome {
+    font-size: 1.1em; /* Ajusta tamanho da fonte do nome */
+  }
+  .card .header .area {
+    font-size: 1em; /* Ajusta tamanho da fonte da área */
+  }
+
+  .card .etiqueta {
+    margin: 10px auto !important; /* Ajusta margem da etiqueta visual */
+  }
+
+  .card .footer {
+    font-size: 0.9em; /* Ajusta tamanho da fonte do rodapé */
+  }
+
+  /* Garante que as cores das etiquetas visuais sejam impressas */
+  .card .etiqueta .retangulo,
+  .card .etiqueta .retangulo-vertical,
+  .card .etiqueta .circulo {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
-  .controls,
-  h1 {
+
+  /* Oculta a div de alerta e contador na impressão */
+  #alerta,
+  #contador {
     display: none !important;
   }
-  .grid {
-    display: block !important;
-    margin: 0;
-    padding: 0;
-  }
-  .card {
-    page-break-before: always !important;
-    break-before: page !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    width: 100%;
-    height: 100vh;
-    background: #eaeaea !important;
-    border: 1px solid #000 !important;
-    position: relative;
-    overflow: hidden;
-  }
-  .card:first-child {
-    page-break-before: auto !important;
-    break-before: auto !important;
-  }
-  .titulo {
-    position: absolute;
-    top: 20px;
-    width: 100%;
-    text-align: center;
-    font-family: "Montserrat", sans-serif !important;
-    font-weight: 700 !important;
-    font-size: 5em;
-    color: black !important;
-    text-transform: uppercase;
-  }
-  .etiqueta {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 350px;
-    height: 350px;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .circulo {
-    width: 350px !important;
-    height: 350px !important;
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .retangulo {
-    width: 240px !important;
-    height: 160px !important;
-    top: 100px !important;
-    left: calc(60px) !important;
-  }
-  .retangulo-vertical {
-    width: 160px !important;
-    height: 240px !important;
-    top: calc(30px) !important;
-  }
-  .retangulo-vertical.direita {
-    left: calc(50% + 10px) !important;
-  }
-  .circulo[style*="background: white"],
-  .retangulo[style*="background: white"],
-  .retangulo-vertical[style*="background: white"] {
-    border: 0.5px solid #999 !important;
-  }
+}
+
+/* Estilo para o retângulo branco */
+.retangulo-branco {
+  background-color: #f0f0f0 !important; /* Fundo levemente acinzentado */
+  border: 0.5px solid #cccccc !important; /* Borda cinza clara */
+  box-sizing: border-box; /* Garante que a borda não aumente o tamanho total */
+  border: 1px solid black;
 }

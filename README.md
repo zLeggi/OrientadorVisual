@@ -1,2 +1,0 @@
-# Etiqueta-orientador
-# OrientadorVisual
