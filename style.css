@@ -573,8 +573,8 @@ button:active, .upload-button:active {
   .card .etiqueta .circulo {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-    box-shadow: none; /* Remove sombra na impressão */
-    border: none; /* Remove borda na impressão */
+    
+    border: 0,5px solid gray; /* Borda de 0.5px cinza */
   }
 
   /* Escala os elementos internos da etiqueta para ficarem maiores */
@@ -582,6 +582,7 @@ button:active, .upload-button:active {
   .card .etiqueta .retangulo {
     width: 120px; /* Escalado */
     height: 90px; /* Escalado */
+    border: 1px solid gray !important; /* Borda de 0.5px cinza */
   }
   .card .etiqueta .retangulo-esquerda,
   .card .etiqueta .retangulo-direita {
@@ -623,5 +624,7 @@ button:active, .upload-button:active {
   /* Garante que o texto no retângulo branco escale */
   .card .etiqueta .retangulo-branco {
     font-size: 2.2em !important; /* Torna o número muito maior */
+    
+    border: 0,5px solid gray !important; /* Borda de 0.5px cinza */
   }
 }

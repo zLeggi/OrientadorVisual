@@ -543,17 +543,16 @@ function desenharCard(orientador, combinacao, targetContainer, specificCaixaId =
     if (comp.zIndex) el.style.zIndex = comp.zIndex;
     if (comp.classe) el.classList.add(comp.classe); 
 
-    // Se for um retângulo branco, adiciona o ID da caixa como texto.
-    // Usa specificCaixaId se fornecido (para impressão), caso contrário, usa o primeiro ID de caixa do orientador.
+    // Se for um retângulo branco, remove a atribuição do texto (número da caixa)
     if (comp.classe === "retangulo-branco") {
-      const caixaIdToDisplay = specificCaixaId || Object.keys(orientador.caixas)[0];
-      el.textContent = caixaIdToDisplay; 
-      el.style.color = "black"; 
+      // Anteriormente: el.textContent = specificCaixaId || Object.keys(orientador.caixas)[0];
+      // Apenas mantém o elemento vazio para a forma e cor brancas, sem o número.
+      el.style.color = "black"; // Mantém a cor do texto para o caso de algum conteúdo ser adicionado futuramente
       el.style.display = "flex";
       el.style.justifyContent = "center";
       el.style.alignItems = "center";
       el.style.fontWeight = "bold";
-      el.style.fontSize = "1.2em"; // Aumenta o tamanho da fonte para o ID da caixa
+      el.style.fontSize = "1.2em"; 
     }
     etiquetaDiv.appendChild(el);
     console.log(`[desenharCard] Elemento de etiqueta adicionado: Formato=${comp.formato}, Cor=${comp.cor}, Posição=${comp.pos || 'nenhuma'}`);
