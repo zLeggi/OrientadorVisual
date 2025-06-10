@@ -16,9 +16,16 @@
           <input type="text" id="nomeInput" placeholder="Nome do orientador" pattern="[A-Za-zÀ-ÖØ-öø-ÿ ]+" title="Apenas letras e espaços" required />
           <input type="text" id="areaInput" placeholder="Área (número)" inputmode="numeric" pattern="\d+" title="Apenas dígitos" required />
           <input type="text" id="quantidadeInput" placeholder="Quantidade de itens" inputmode="numeric" pattern="\d+" title="Apenas dígitos" required />
-          <button type="submit" id="addButton">+</button>
+          <button type="submit" id="addButton">Adicionar</button> <!-- Botão de adicionar com texto -->
         </div>
       </form>
+
+      <div class="upload-section">
+        <label for="uploadFile" class="upload-button">
+          Carregar Planilha (.xlsx/.xls)
+          <input type="file" id="uploadFile" accept=".xlsx, .xls" />
+        </label>
+      </div>
 
       <div id="alerta" class="alerta"></div>
       <div id="contador"></div>
@@ -31,21 +38,33 @@
               <th>Área</th>
               <th>Quantidade</th>
               <th>Caixas</th>
+              <th>Ações</th>
             </tr>
           </thead>
           <tbody></tbody>
         </table>
       </div>
 
-      <button id="gerarEtiquetasButton">Gerar Etiquetas</button>
-      <button id="limparDadosButton">Limpar</button>
-      <button id="imprimirButton">Imprimir</button>
+      <div class="button-group">
+        <button id="limparDadosButton">Limpar Todos os Dados</button>
+        <button id="imprimirButton">Imprimir Todas as Etiquetas</button> <!-- Renomeado para clareza -->
+      </div>
     </div>
 
-    <div class="grid" id="container"></div>
+    <!-- Seção para exibir as pré-visualizações das etiquetas de cada orientador -->
+    <div class="labels-preview-section">
+      <h2>Pré-visualização das Etiquetas por Orientador</h2>
+      <div class="grid" id="orientadoresLabelsPreview">
+        <p class="placeholder-text">Adicione orientadores para ver as pré-visualizações das etiquetas.</p>
+      </div>
+    </div>
+
+    <!-- Container oculto para a impressão de todas as etiquetas -->
+    <div id="printContainer" style="display: none;"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script> <!-- Biblioteca para ler XLSX -->
     <script src="etiquetasAvancadas.js"></script>
-    <script src="script_com_logs.js"></script> <!-- Alterado para script_com_logs.js -->
+    <script src="script_com_logs.js"></script> 
 
   </body>
 </html>
-
